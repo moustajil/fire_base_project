@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/services/Auth/Login.dart';
 import 'package:note_app/veiws/screens/creat_account_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -9,6 +10,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +53,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 backgroundColor: Colors.blue,
               ),
-              onPressed: () {},
+              onPressed: () {
+                if (_emailController.text.isEmpty ||
+                    _passwordController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Please fill in all fields')),
+                  );
+                  return;
+                }else{
+                  LoginAccount(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    context: context,
+                  ).then((success) {
+                    if (!success) {
+                       ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Failed to login')),
+                      );
+                    } 
+                  });
+                }
+              },
               child: Padding(
                 padding: const EdgeInsets.only(top: 10, bottom: 10),
                 child: const Text(

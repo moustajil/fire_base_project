@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/services/Auth/CreatAccount.dart';
-import 'package:note_app/veiws/screens/login_screen.dart';
+import 'package:note_app/veiws/screens/home_screem.dart';
 
 class CreatAccountScreen extends StatefulWidget {
   const CreatAccountScreen({super.key});
@@ -82,10 +82,12 @@ class _CreatAccountScreenState extends State<CreatAccountScreen> {
                     context: context,
                   ).then((success) {
                     if (success) {
+                      // ignore: use_build_context_synchronously
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => const LoginScreen()),
+                        MaterialPageRoute(builder: (context) => const HomeScreem()),
                       );
                     } else {
+                      // ignore: use_build_context_synchronously
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Failed to create account')),
                       );
