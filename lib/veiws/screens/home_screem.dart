@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:note_app/veiws/screens/login_screen.dart';
 
 class HomeScreem extends StatefulWidget {
   const HomeScreem({super.key});
@@ -16,8 +18,11 @@ class _HomeScreemState extends State<HomeScreem> {
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
-            onPressed: () {
-              
+            onPressed: () async{
+              await FirebaseAuth.instance.signOut();
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              );
             },
           ),
         ],
